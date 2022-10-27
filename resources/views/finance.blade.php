@@ -321,8 +321,8 @@
                                             data: {
                                                 labels: ['Sales', 'Marketing', 'Development', 'Customer Support', 'ion Technology', 'Administration'],
                                                 datasets: [{
-                                                    label: 'Costs',
-                                                    data: [100, 100, 70, 75, 100, 100],
+                                                    label: 'Spending',
+                                                    data: [110, 110, 70, 75, 130, 210],
                                                     backgroundColor: [
                                                         'rgba(255, 99, 132, 0.2)',
                                                         'rgba(255, 159, 64, 0.2)',
