@@ -224,7 +224,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="users-profile.html">
                     <i class="bi bi-person"></i>
-                    <span>Line Managers</span>
+                    <span>Departments</span>
                 </a>
             </li><!-- End Profile Page Nav -->
 
@@ -281,7 +281,7 @@
                                         <thead>
                                         <tr>
                                             <th scope="col">#</th>
-                                            <th scope="col">Line Manager</th>
+                                            <th scope="col">Department</th>
                                             <th scope="col">Price</th>
                                             <th scope="col">Progress</th>
                                             <th scope="col">Status</th>
@@ -290,24 +290,17 @@
                                         <tbody>
                                         <tr>
                                             <th scope="row"><a href="#" data-bs-toggle="modal" data-bs-target="#basicModal">#2457</a></th>
-                                            <td>Carl</td>
+                                            <td>Marketing</td>
                                             <td>$64</td>
                                             <td>3</td>
                                             <td><span class="badge bg-success">Approved</span></td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><a href="#" data-bs-toggle="modal" data-bs-target="#basicModal">#2457</a></th>
-                                            <td>Manager3</td>
+                                            <td>Customer Support</td>
                                             <td>$10</td>
                                             <td>3</td>
                                             <td><span class="badge bg-success">Approved</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><a href="#" data-bs-toggle="modal" data-bs-target="#basicModal">#2457</a></th>
-                                            <td>Carl</td>
-                                            <td>$200</td>
-                                            <td>2</td>
-                                            <td><span class="badge bg-danger">Rejected</span></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -326,18 +319,17 @@
                                         new Chart(document.querySelector('#barChart'), {
                                             type: 'bar',
                                             data: {
-                                                labels: ['Carl', 'Manager2', 'Manager3', 'Manager4', 'Manager5', 'Manager6', 'Manager7'],
+                                                labels: ['Sales', 'Marketing', 'Development', 'Customer Support', 'ion Technology', 'Administration'],
                                                 datasets: [{
                                                     label: 'Costs',
-                                                    data: [95, 0, 5, 0, 0, 0, 0],
+                                                    data: [100, 100, 70, 75, 100, 100],
                                                     backgroundColor: [
                                                         'rgba(255, 99, 132, 0.2)',
                                                         'rgba(255, 159, 64, 0.2)',
                                                         'rgba(255, 205, 86, 0.2)',
                                                         'rgba(75, 192, 192, 0.2)',
                                                         'rgba(54, 162, 235, 0.2)',
-                                                        'rgba(153, 102, 255, 0.2)',
-                                                        'rgba(201, 203, 207, 0.2)'
+                                                        'rgba(153, 102, 255, 0.2)'
                                                     ],
                                                     borderColor: [
                                                         'rgb(255, 99, 132)',
@@ -345,8 +337,7 @@
                                                         'rgb(255, 205, 86)',
                                                         'rgb(75, 192, 192)',
                                                         'rgb(54, 162, 235)',
-                                                        'rgb(153, 102, 255)',
-                                                        'rgb(201, 203, 207)'
+                                                        'rgb(153, 102, 255)'
                                                     ],
                                                     borderWidth: 1
                                                 }]
@@ -384,7 +375,7 @@
                                     <div class="activite-label">32 min</div>
                                     <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
                                     <div class="activity-content">
-                                        Finance has <a href="#" class="fw-bold text-dark">Approved</a> Standard Floor boards
+                                        You have <a href="#" class="fw-bold text-dark">Approved</a> Standard Floor boards
                                     </div>
                                 </div><!-- End activity item-->
 
@@ -392,17 +383,10 @@
                                     <div class="activite-label">32 min</div>
                                     <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
                                     <div class="activity-content">
-                                        Finance has <a href="#" class="fw-bold text-dark">Approved</a> New carpets
+                                        You have <a href="#" class="fw-bold text-dark">Approved</a> New carpets
                                     </div>
                                 </div><!-- End activity item-->
 
-                                <div class="activity-item d-flex">
-                                    <div class="activite-label">56 min</div>
-                                    <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
-                                    <div class="activity-content">
-                                        You have rejected 1080p Monitor
-                                    </div>
-                                </div><!-- End activity item-->
 
 
                             </div>
@@ -412,52 +396,74 @@
 
                     <!-- Budget Report -->
                     <div class="card">
+                        <div class="filter">
+                            <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                <li class="dropdown-header text-start">
+                                    <h6>Filter</h6>
+                                </li>
+
+                                <li><a class="dropdown-item" href="#">Today</a></li>
+                                <li><a class="dropdown-item" href="#">This Month</a></li>
+                                <li><a class="dropdown-item" href="#">This Year</a></li>
+                            </ul>
+                        </div>
 
                         <div class="card-body pb-0">
                             <h5 class="card-title">Budget Report <span>| This Month</span></h5>
 
-                            <!-- Pie Chart -->
-                            <div id="pieChart" style="min-height: 400px;" class="echart"></div>
+                            <div id="budgetChart" style="min-height: 400px;" class="echart"></div>
 
                             <script>
                                 document.addEventListener("DOMContentLoaded", () => {
-                                    echarts.init(document.querySelector("#pieChart")).setOption({
-                                        title: {
-                                            text: 'Funds vs Costs',
-                                            left: 'center'
-                                        },
-                                        tooltip: {
-                                            trigger: 'item'
-                                        },
+                                    var budgetChart = echarts.init(document.querySelector("#budgetChart")).setOption({
                                         legend: {
-                                            orient: 'vertical',
-                                            left: 'left'
+                                            data: ['Allocated Budget', 'Actual Spending']
                                         },
-                                        series: [{
-                                            name: 'Access From',
-                                            type: 'pie',
-                                            radius: '50%',
-                                            data: [{
-                                                value: 1048,
-                                                name: 'Funds'
+                                        radar: {
+                                            // shape: 'circle',
+                                            indicator: [{
+                                                name: 'Sales',
+                                                max: 6500
                                             },
                                                 {
-                                                    value: 735,
-                                                    name: 'Costs'
+                                                    name: 'Administration',
+                                                    max: 16000
+                                                },
+                                                {
+                                                    name: 'Information Technology',
+                                                    max: 30000
+                                                },
+                                                {
+                                                    name: 'Customer Support',
+                                                    max: 38000
+                                                },
+                                                {
+                                                    name: 'Development',
+                                                    max: 52000
+                                                },
+                                                {
+                                                    name: 'Marketing',
+                                                    max: 25000
                                                 }
-                                            ],
-                                            emphasis: {
-                                                itemStyle: {
-                                                    shadowBlur: 10,
-                                                    shadowOffsetX: 0,
-                                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                            ]
+                                        },
+                                        series: [{
+                                            name: 'Budget vs spending',
+                                            type: 'radar',
+                                            data: [{
+                                                value: [4200, 3000, 20000, 35000, 50000, 18000],
+                                                name: 'Allocated Budget'
+                                            },
+                                                {
+                                                    value: [5000, 14000, 28000, 26000, 42000, 21000],
+                                                    name: 'Actual Spending'
                                                 }
-                                            }
+                                            ]
                                         }]
                                     });
                                 });
                             </script>
-                            <!-- End Pie Chart -->
 
                         </div>
                     </div><!-- End Budget Report -->
