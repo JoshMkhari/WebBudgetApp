@@ -25,18 +25,7 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->string('password');
-            $table->timestamp('verified_at')->nullable();
-            $table->integer('verified_by')->nullable();
-            $table->integer('role')->default(0);
-            $table->string('department')->default("HR");
-            $table->rememberToken();
-            $table->timestamps();
-        });
+
         Schema::create('request', function (Blueprint $table) {
             $table->id();
             $table->string('department');
