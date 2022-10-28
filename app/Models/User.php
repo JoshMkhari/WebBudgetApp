@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -16,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $password
  * @property string $remember_token
  */
-class User extends Model
+class User extends \Illuminate\Foundation\Auth\User
 {
     /**
      * The database table used by the model.
@@ -47,7 +48,7 @@ class User extends Model
      * @var array
      */
     protected $hidden = [
-        
+
     ];
 
     /**

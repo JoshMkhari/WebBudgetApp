@@ -24,3 +24,7 @@ Route::middleware(['auth'])->group(function () {
 //Route::put('/post/{id}', function ($id) {
 //    //
 //})->middleware('role:editor');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
