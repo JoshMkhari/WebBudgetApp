@@ -30,11 +30,14 @@ class HomeController extends Controller
                 $requests = RequestController::getRequestsByUser(Auth::user());
                 return view('home')->with('requests',$requests);
             case 1:
-                return view('linemanagerhome');
+                $requests = RequestController::getRequestsByDepartmentAndStatus(Auth::user()->department,Auth::user()->role);
+                return view('linemanagerhome')->with('requests',$requests);
             case 2:
-                return view('hodhome');
+                $requests = RequestController::getRequestsByDepartmentAndStatus(Auth::user()->department,Auth::user()->role);
+                return view('hodhome')->with('requests',$requests);
             case 3:
-                return view('financehome');
+                $requests = RequestController::getRequestsByDepartmentAndStatus(Auth::user()->department,Auth::user()->role);
+                return view('financehome')->with('requests',$requests);
             default:
                 return view('auth.login');
 

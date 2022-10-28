@@ -168,14 +168,13 @@
                 <li class="nav-item dropdown pe-3">
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                        <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+                        <span class="d-none d-md-block dropdown-toggle ps-2">{{Auth::user()->name}}</span>
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6>Kevin Anderson</h6>
-                            <span>Line Manager</span>
+                            <h6>{{Auth::user()->name}}</h6>
+                            <span>{{Auth::user()->email}}</span>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
@@ -289,38 +288,22 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <th scope="row"><a href="#" data-bs-toggle="modal" data-bs-target="#basicModal">#2457</a></th>
-                                            <td>Darshika</td>
-                                            <td>Standard Floor Boards</td>
-                                            <td>$64</td>
-                                            <td>3</td>
-                                            <td><span class="badge bg-success">Approved</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><a href="#" data-bs-toggle="modal" data-bs-target="#basicModal">#2457</a></th>
-                                            <td>Bryan</td>
-                                            <td>Car Rental</td>
-                                            <td>$6434</td>
-                                            <td>1</td>
-                                            <td><span class="badge bg-warning">Pending</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><a href="#" data-bs-toggle="modal" data-bs-target="#basicModal">#2457</a></th>
-                                            <td>Lesedi</td>
-                                            <td>Tiles</td>
-                                            <td>$64</td>
-                                            <td>0</td>
-                                            <td><span class="badge bg-warning">Pending</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><a href="#" data-bs-toggle="modal" data-bs-target="#basicModal">#2457</a></th>
-                                            <td>Josh</td>
-                                            <td>1080p Monitor</td>
-                                            <td>$200</td>
-                                            <td>2</td>
-                                            <td><span class="badge bg-danger">Rejected</span></td>
-                                        </tr>
+                                        @foreach($requests as $request)
+                                            <tr>
+                                                <th scope="row"><a href="#" data-bs-toggle="modal" data-bs-target="#basicModal">{{$request->id}}</a></th>
+                                                <td>{{\App\Models\User::find($request->created_by)->first()->name}}</td>
+                                                <td>{{$request->name}}</td>
+                                                <td>{{$request->amount_requested}}</td>
+                                                <td>{{$request->status}}</td>
+                                                @if($request->approved == 0)
+                                                    <td><span class="badge bg-danger">Rejected</span></td>
+                                                @elseif($request->approved == 1)
+                                                    <td><span class="badge bg-warning">Pending</span></td>
+                                                @elseif($request->approved == 2)
+                                                    <td><span class="badge bg-success">Approved</span></td>
+                                                @endif
+                                            </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
 

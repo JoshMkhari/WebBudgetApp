@@ -52,7 +52,7 @@ class RequestController extends Controller
         $request->delete();
     }
 
-    public function getRequestsByDepartmentAndStatus($department, $status)
+    public static function getRequestsByDepartmentAndStatus($department, $status)
     {
         return $requests = Request::where('department', $department)->where('status', $status)->get();
     }
