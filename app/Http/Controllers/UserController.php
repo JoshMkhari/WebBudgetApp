@@ -4,9 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
+    public function logout(){
+        Session::flush();
+
+        Auth::logout();
+
+        return redirect('login');
+    }
     public function index()
     {
         $user = Auth::user();

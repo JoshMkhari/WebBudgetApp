@@ -3,13 +3,37 @@
 namespace App\Http\Controllers;
 
 use App\Models\Request;
+use Decimal\Decimal;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class RequestController extends Controller
 {
     public function getAll()
     {
         return $requests = Request::all();
+    }
+    public function createView(){
+        return view('createrequest');
+    }
+    public function postRequest(\Illuminate\Http\Request $request){
+
+        Log::info($request->all());
+        $req = new Request();
+        $req->amount_requested = floatval($request['Price']);
+        $req->name = $request['Name'];
+        $req->equipment = $request['Name'];
+        $req->approved = 1;
+        $req->description = $request['description'];
+        $req->department = Auth::user()->department;
+        $req->created_by = Auth::user()->id;
+        $req->updated_by = Auth::user()->id;
+        $req->type = $request['Type'];
+        $req->status = 1;
+        $req->save();
+
+
+        return redirect()->back();
     }
 
     public function get($id)
@@ -66,7 +90,7 @@ class RequestController extends Controller
         $request->save();
     }
 
-    public function getRequestsByUser($user)
+    public static function getRequestsByUser($user)
     {
         return $requests = Request::where('created_by', $user->id)->get();
     }

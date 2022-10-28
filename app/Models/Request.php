@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $department
  * @property string $description
  * @property string $status
+ * @property string $name
  * @property string $updated_by
  */
 class Request extends Model
@@ -35,7 +36,7 @@ class Request extends Model
      * @var array
      */
     protected $fillable = [
-        'amount_requested', 'created_at', 'created_by', 'department', 'description', 'status', 'updated_at', 'updated_by'
+        'amount_requested', 'name','created_at', 'created_by', 'department', 'description', 'status', 'updated_at', 'updated_by'
     ];
 
     /**
@@ -44,7 +45,7 @@ class Request extends Model
      * @var array
      */
     protected $hidden = [
-        
+
     ];
 
     /**
@@ -53,7 +54,7 @@ class Request extends Model
      * @var array
      */
     protected $casts = [
-        'created_at' => 'timestamp', 'created_by' => 'string', 'department' => 'string', 'description' => 'string', 'status' => 'string', 'updated_at' => 'timestamp', 'updated_by' => 'string'
+        'created_at' => 'timestamp', 'created_by' => 'string','name' => 'string', 'department' => 'string', 'description' => 'string', 'status' => 'string', 'updated_at' => 'timestamp', 'updated_by' => 'string'
     ];
 
     /**

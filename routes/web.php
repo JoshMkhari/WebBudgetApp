@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,12 +20,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
         return view('welcome');
     });
+    Route::get('/create-request',[\App\Http\Controllers\RequestController::class,'createView'])->name('create.request')->middleware('role:0');
+    Route::any('/post-request',[\App\Http\Controllers\RequestController::class,'postRequest'])->name('post.request')->middleware('role:0');
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/logout', [App\Http\Controllers\UserController::class, 'logout'])->name('user.logout');
 });
 //Route::put('/post/{id}', function ($id) {
 //    //
 //})->middleware('role:editor');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

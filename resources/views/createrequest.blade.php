@@ -16,7 +16,7 @@
         <div class="d-flex align-items-center justify-content-between">
             <a href="index.html" class="logo d-flex align-items-center">
                 <img src="assets/img/logo.png" alt="">
-                <span class="d-none d-lg-block">NiceAdmin</span>
+                <span class="d-none d-lg-block">Budget App</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
@@ -213,7 +213,7 @@
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
-                <a class="nav-link " href="index.html">
+                <a class="nav-link " href="{{route('home')}}">
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
@@ -222,9 +222,9 @@
             <li class="nav-heading">Pages</li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="users-profile.html">
+                <a class="nav-link collapsed" href="{{route('create.request')}}">
                     <i class="bi bi-person"></i>
-                    <span>Departments</span>
+                    <span>New Request</span>
                 </a>
             </li><!-- End Profile Page Nav -->
 
@@ -256,33 +256,34 @@
                         <div class="col-12">
                             <div class="card recent-sales overflow-auto">
                                 <div class="card-body">
-                                    <h5 class="card-title">Horizontal Form</h5>
+                                    <h5 class="card-title">Request Form</h5>
 
                                     <!-- Horizontal Form -->
-                                    <form>
+                                    <form method="POST" action="{{route('post.request')}}">
                                         <div class="row mb-3">
                                             <label for="inputEmail3" class="col-sm-2 col-form-label">Product Name</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="inputText">
+                                                <input type="text" class="form-control" name="Name">
                                             </div>
                                         </div>
                                         <div class="row mb-3">
                                             <label for="inputEmail3" class="col-sm-2 col-form-label">Product Price</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="inputText">
+                                                <input type="text" class="form-control" name="Price">
                                             </div>
                                         </div>
                                         <fieldset class="row mb-3">
                                             <legend class="col-form-label col-sm-2 pt-0">Radios</legend>
                                             <div class="col-sm-10">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+                                                    <input class="form-check-input" type="radio" name="Type" id="gridRadios1" value="Equipment" checked>
                                                     <label class="form-check-label" for="gridRadios1">
                                                         Equipment
                                                     </label>
                                                 </div>
+                                                @csrf
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                                                    <input class="form-check-input" type="radio" name="Type" id="gridRadios2" value="Resource">
                                                     <label class="form-check-label" for="gridRadios2">
                                                         Resource
                                                     </label>
@@ -292,7 +293,7 @@
                                         <div class="row mb-3">
                                             <label for="inputEmail3" class="col-sm-2 col-form-label">Justification</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="inputText">
+                                                <input type="text" class="form-control" name="description">
                                             </div>
                                         </div>
 
