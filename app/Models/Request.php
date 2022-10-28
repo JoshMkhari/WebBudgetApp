@@ -2,29 +2,25 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int    $created_at
- * @property int    $role
  * @property int    $updated_at
- * @property int    $verified_at
- * @property int    $verified_by
+ * @property string $created_by
  * @property string $department
- * @property string $email
- * @property string $name
- * @property string $password
- * @property string $remember_token
+ * @property string $description
+ * @property string $status
+ * @property string $updated_by
  */
-class User extends \Illuminate\Foundation\Auth\User
+class Request extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'user';
+    protected $table = 'request';
 
     /**
      * The primary key for the model.
@@ -39,7 +35,7 @@ class User extends \Illuminate\Foundation\Auth\User
      * @var array
      */
     protected $fillable = [
-        'created_at', 'department', 'email', 'name', 'password', 'remember_token', 'role', 'updated_at', 'verified_at', 'verified_by'
+        'amount_requested', 'created_at', 'created_by', 'department', 'description', 'status', 'updated_at', 'updated_by'
     ];
 
     /**
@@ -48,7 +44,7 @@ class User extends \Illuminate\Foundation\Auth\User
      * @var array
      */
     protected $hidden = [
-
+        
     ];
 
     /**
@@ -57,7 +53,7 @@ class User extends \Illuminate\Foundation\Auth\User
      * @var array
      */
     protected $casts = [
-        'created_at' => 'timestamp', 'department' => 'string', 'email' => 'string', 'name' => 'string', 'password' => 'string', 'remember_token' => 'string', 'role' => 'int', 'updated_at' => 'timestamp', 'verified_at' => 'timestamp', 'verified_by' => 'int'
+        'created_at' => 'timestamp', 'created_by' => 'string', 'department' => 'string', 'description' => 'string', 'status' => 'string', 'updated_at' => 'timestamp', 'updated_by' => 'string'
     ];
 
     /**
@@ -66,7 +62,7 @@ class User extends \Illuminate\Foundation\Auth\User
      * @var array
      */
     protected $dates = [
-        'created_at', 'updated_at', 'verified_at'
+        'created_at', 'updated_at'
     ];
 
     /**

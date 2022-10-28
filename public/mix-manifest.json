@@ -1,0 +1,19 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/js/apexcharts.min.js": "/js/apexcharts.min.js",
+    "/js/bootstrap.bundle.min.js": "/js/bootstrap.bundle.min.js",
+    "/js/chart.min.js": "/js/chart.min.js",
+    "/js/echarts.min.js": "/js/echarts.min.js",
+    "/js/quill.min.js": "/js/quill.min.js",
+    "/js/simple-datatables.js": "/js/simple-datatables.js",
+    "/js/validate.js": "/js/validate.js",
+    "/js/main.js": "/js/main.js",
+    "/css/app.css": "/css/app.css",
+    "/css/quill.snow.css": "/css/quill.snow.css",
+    "/css/boxicons.min.css": "/css/boxicons.min.css",
+    "/css/bootstrap-icons.css": "/css/bootstrap-icons.css",
+    "/css/bootstrap.min.css": "/css/bootstrap.min.css",
+    "/css/style.css": "/css/style.css",
+    "/css/remixicon.css": "/css/remixicon.css",
+    "/css/quill.bubble.css": "/css/quill.bubble.css"
+}
