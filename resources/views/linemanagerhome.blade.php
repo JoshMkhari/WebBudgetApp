@@ -16,7 +16,7 @@
         <div class="d-flex align-items-center justify-content-between">
             <a href="index.html" class="logo d-flex align-items-center">
                 <img src="assets/img/logo.png" alt="">
-                <span class="d-none d-lg-block">NiceAdmin</span>
+                <span class="d-none d-lg-block">Budget App</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
@@ -192,7 +192,7 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
+                            <a class="dropdown-item d-flex align-items-center" href="{{route('user.logout')}}">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Sign Out</span>
                             </a>
@@ -269,7 +269,10 @@
                                                     Standard floor boards are needed in the gallery, the current state of the gallery will scare away any potential customers
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Reject</button>
+                                                    <form>
+                                                        <input name="id"/>
+                                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Reject</button>
+                                                    </form>
                                                     <button type="button" class="btn btn-primary">Send to HOD</button>
                                                 </div>
                                             </div>
@@ -368,6 +371,7 @@
         </section>
 
     </main><!-- End #main -->
+
 
 
 @endsection
