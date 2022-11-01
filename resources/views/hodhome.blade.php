@@ -298,7 +298,7 @@
                                                                 <input id="requestID" type="hidden" name="requestID" value="{{$request->id}}">
                                                                 @csrf
                                                                 <button type="submit" class="btn btn-danger" name="reject_button"  >Reject</button>
-                                                                <button type="submit" class="btn btn-primary" name="approve_button" >Send to HOD</button>
+                                                                <button type="submit" class="btn btn-primary" name="approve_button" >Send to Finance</button>
                                                             </form>
                                                         </div>
                                                     </div>

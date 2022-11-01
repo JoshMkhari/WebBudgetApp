@@ -277,7 +277,7 @@
                                     <tbody>
                                     @foreach($requests as $request)
                                     <tr>
-                                        <th scope="row"><a href="#">{{$request->id}}</a></th>
+                                        <th scope="row"><a href="#" data-bs-toggle="modal" data-bs-target="#basicModal-{{$request->id}}">{{$request->id}}</a></th>
                                         <td>{{$request->type}}</td>
                                         <td>{{$request->name}}</td>
                                         <td>{{$request->amount_requested}}</td>
@@ -305,9 +305,6 @@
                                                     <form method="POST"  action="{{route('post.approve')}}">
                                                         <input id="actionToBeDone" type="hidden" name="actionToBeDone">
                                                         <input id="requestID" type="hidden" name="requestID" value="{{$request->id}}">
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-danger" name="reject_button"  >Reject</button>
-                                                        <button type="submit" class="btn btn-primary" name="approve_button" >Send to HOD</button>
                                                     </form>
                                                 </div>
                                             </div>
