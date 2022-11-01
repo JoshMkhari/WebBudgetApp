@@ -26,7 +26,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        RegisterController::$role_id = Auth::user()->role;
         switch (Auth::user()->role){
             case 0:
                 $requests = RequestController::getRequestsByUser(Auth::user());

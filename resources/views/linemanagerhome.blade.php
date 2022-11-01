@@ -296,9 +296,11 @@
                                                             {{$request->description}}
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <form method="POST" action="{{route('post.approve')}}">
+                                                            <form method="POST"  action="{{route('post.approve')}}">
+                                                                <input id="apporveThing" type="hidden" name="useful">
+                                                                @csrf
                                                                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >Reject</button>
-                                                                <button type="button" class="btn btn-primary"data-bs-dismiss="modal" >Send to HOD</button>
+                                                                <button type="submit" class="btn btn-primary"data-bs-dismiss="modal" >Send to HOD</button>
                                                             </form>
                                                         </div>
                                                     </div>

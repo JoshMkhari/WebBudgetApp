@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Models\Request;
 use Decimal\Decimal;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -39,15 +40,23 @@ class RequestController extends Controller
 
     public function postApprove(\Illuminate\Http\Request $request){
 
-        DB::table('request')
-            ->where('id',$request['id'])  // find your user by their email
-            ->limit(1)  // optional - to ensure only one record is updated.
-            ->update(array('status', $request['status']+1));  // update the record in the DB.
+        //Auth::user()->role
+
+
+        Request::where('id', 3)
+            ->update(['status' => 2]);
+
+        return redirect()->back();
     }
 
     public function get($id)
     {
-        return $request = Request::find($id)->first();
+        return Request::find($id)->first();
+    }
+
+    public function getStatus($id)
+    {
+        return Request::find($id)->first();
     }
 
     public function create(Request $request)
@@ -70,7 +79,7 @@ class RequestController extends Controller
     {
         $currentStatus = Auth::user()->role;
         switch ($currentStatus) {
-            case 'employee':
+            case 'employee'://0
                 $request->status = '1';
                 break;
             case 'manager':

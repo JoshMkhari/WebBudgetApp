@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('password');
             $table->timestamp('verified_at')->nullable();
             $table->integer('verified_by')->nullable();
-            $table->integer('role')->default(RegisterController::$role_id);
+            $table->integer('role')->default(0);
             $table->string('department')->default("HR");
             $table->rememberToken();
             $table->timestamps();
