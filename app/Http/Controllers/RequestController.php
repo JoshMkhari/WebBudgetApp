@@ -40,12 +40,20 @@ class RequestController extends Controller
 
     public function postApprove(\Illuminate\Http\Request $request){
 
-        //Auth::user()->role
+        Request::where('id', 1)
+            ->update([
+                'status' => Auth::user()->role +1,
+                'updated_by' => Auth::user()->id]);
 
+        $status = Request::where('id', 1)
+            ->first()->status;
 
-        Request::where('id', 4)
-            ->update(['status' => 2]);
-
+        if($status ==3)
+        {
+            Request::where('id', 1)
+                ->update([
+                    'approved' => 2]);
+        }
         return redirect()->back();
     }
 

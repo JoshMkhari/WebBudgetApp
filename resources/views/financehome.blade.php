@@ -300,25 +300,6 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Requests</h5>
 
-                                    <div class="modal fade" id="basicModal" tabindex="-1">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">Standard Floor Boards <span>| $64</span></h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <h5>Justification</h5>
-                                                    Standard floor boards are needed in the gallery, the current state of the gallery will scare away any potential customers
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Reject</button>
-                                                    <button type="button" class="btn btn-primary">Send to HOD</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div><!-- End Basic Modal-->
-
                                     <table class="table table-borderless datatable">
                                         <thead>
                                         <tr>
@@ -332,9 +313,8 @@
                                         <tbody>
                                         @foreach($requests as $request)
                                             <tr>
-                                                <th scope="row"><a href="#" data-bs-toggle="modal" data-bs-target="#basicModal">{{$request->id}}</a></th>
-                                                <td>{{\App\Models\User::find($request->created_by)->first()->name}}</td>
-                                                <td>{{$request->name}}</td>
+                                                <th scope="row"><a href="#" data-bs-toggle="modal" data-bs-target="#basicModal-{{$request->id}}">{{$request->id}}</a></th>
+                                                <td>{{\App\Models\User::where('id',$request->updated_by)->first()->department}}</td>
                                                 <td>{{$request->amount_requested}}</td>
                                                 <td>{{$request->status}}</td>
                                                 @if($request->approved == 0)
@@ -345,6 +325,28 @@
                                                     <td><span class="badge bg-success">Approved</span></td>
                                                 @endif
                                             </tr>
+                                            <div class="modal fade" id="basicModal-{{$request->id}}" tabindex="-1">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">{{$request->name}}<span> | R {{$request->amount_requested}}</span></h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <h5>Justification</h5>
+                                                            {{$request->description}}
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <form method="POST"  action="{{route('post.approve')}}">
+                                                                <input id="apporveThing" type="hidden" name="useful">
+                                                                @csrf
+                                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >Reject</button>
+                                                                <button type="submit" class="btn btn-primary"data-bs-dismiss="modal" >Approve Purchase</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- End Basic Modal-->
                                         @endforeach
                                         </tbody>
                                     </table>
