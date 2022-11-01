@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Auth\RegisterController;
 use App\Models\Request;
 use Decimal\Decimal;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class RequestController extends Controller
@@ -32,8 +34,15 @@ class RequestController extends Controller
         $req->status = 1;
         $req->save();
 
-
         return redirect()->back();
+    }
+
+    public function postApprove(\Illuminate\Http\Request $request){
+
+        DB::table('request')
+            ->where('id',$request['id'])  // find your user by their email
+            ->limit(1)  // optional - to ensure only one record is updated.
+            ->update(array('status', $request['status']+1));  // update the record in the DB.
     }
 
     public function get($id)
@@ -54,7 +63,7 @@ class RequestController extends Controller
 
     public static function getRequestsByDepartmentAndStatus($department, $status)
     {
-        return $requests = Request::where('department', $department)->where('status', $status)->get();
+        return Request::where('department', $department)->where('status', $status)->get();
     }
 
     public function escalateRequest(Request $request)

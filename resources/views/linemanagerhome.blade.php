@@ -288,7 +288,7 @@
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title">{{$request->name}}<span>| R {{$request->amount_requested}}</span></h5>
+                                                            <h5 class="modal-title">{{$request->name}}<span> | R {{$request->amount_requested}}</span></h5>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
@@ -296,11 +296,10 @@
                                                             {{$request->description}}
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <form>
-                                                                <input name="id"/>
-                                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Reject</button>
+                                                            <form method="POST" action="{{route('post.approve')}}">
+                                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >Reject</button>
+                                                                <button type="button" class="btn btn-primary"data-bs-dismiss="modal" >Send to HOD</button>
                                                             </form>
-                                                            <button type="button" class="btn btn-primary">Send to HOD</button>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PhpParser\Node\Stmt\Switch_;
@@ -25,6 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        RegisterController::$role_id = Auth::user()->role;
         switch (Auth::user()->role){
             case 0:
                 $requests = RequestController::getRequestsByUser(Auth::user());
