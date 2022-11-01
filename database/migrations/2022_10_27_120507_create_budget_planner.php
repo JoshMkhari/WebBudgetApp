@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,7 +21,7 @@ return new class extends Migration
             $table->string('password');
             $table->timestamp('verified_at')->nullable();
             $table->integer('verified_by')->nullable();
-            $table->integer('role')->default(0);
+            $table->integer('role')->default(RegisterController::$role_id);
             $table->string('department')->default("HR");
             $table->rememberToken();
             $table->timestamps();
