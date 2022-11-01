@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Symfony\Component\Console\Input\Input;
 
 class RequestController extends Controller
 {
@@ -40,20 +41,31 @@ class RequestController extends Controller
 
     public function postApprove(\Illuminate\Http\Request $request){
 
-        Request::where('id', 1)
-            ->update([
-                'status' => Auth::user()->role +1,
-                'updated_by' => Auth::user()->id]);
+        $reqID =  $request['requestID'];
+        $action = $request['actionToBeDone'];
 
-        $status = Request::where('id', 1)
-            ->first()->status;
-
-        if($status ==3)
+        if($action == 0)//Action is to reject request
         {
-            Request::where('id', 1)
+            Request::where('id',$reqID)
                 ->update([
-                    'approved' => 2]);
+                    'approved' => 0]);
+        }else{
+            Request::where('id',$reqID)
+                ->update([
+                    'status' => Auth::user()->role +1,
+                    'updated_by' => Auth::user()->id]);
+
+            $status = Request::where('id',  $reqID)
+                ->first()->status;
+
+            if($status ==3)
+            {
+                Request::where('id',  $reqID)
+                    ->update([
+                        'approved' => 2]);
+            }
         }
+
         return redirect()->back();
     }
 

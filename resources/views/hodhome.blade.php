@@ -294,11 +294,12 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <form method="POST"  action="{{route('post.approve')}}">
-                                                                <input id="apporveThing" type="hidden" name="useful">
+                                                                <input id="actionToBeDone" type="hidden" name="actionToBeDone">
                                                                 @csrf
-                                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >Reject</button>
+                                                                <button type="submit" class="btn btn-danger" data-bs-dismiss="modal" >Reject</button>
                                                                 <button type="submit" class="btn btn-primary"data-bs-dismiss="modal" >Send to Finance</button>
                                                             </form>
+
                                                         </div>
                                                     </div>
                                                 </div>

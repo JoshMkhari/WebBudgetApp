@@ -297,10 +297,11 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <form method="POST"  action="{{route('post.approve')}}">
-                                                                <input id="apporveThing" type="hidden" name="useful">
+                                                                <input id="actionToBeDone" type="hidden" name="actionToBeDone">
+                                                                <input id="requestID" type="hidden" name="requestID" value="{{$request->id}}">
                                                                 @csrf
-                                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >Reject</button>
-                                                                <button type="submit" class="btn btn-primary"data-bs-dismiss="modal" >Send to HOD</button>
+                                                                <button type="submit" class="btn btn-danger" onclick="rejectFunction() " data-bs-dismiss="modal" >Reject</button>
+                                                                <button type="submit" class="btn btn-primary" onclick="approveFunction() " data-bs-dismiss="modal" >Send to HOD</button>
                                                             </form>
                                                         </div>
                                                     </div>
@@ -373,5 +374,15 @@
     </main><!-- End #main -->
 
 
+    <script>
+        function rejectFunction() {
+            document.getElementById("actionToBeDone").value = 0;
+        }
+    </script>
+    <script>
+        function approveFunction() {
+            document.getElementById("actionToBeDone").value = 1;
+        }
+    </script>
 
 @endsection
