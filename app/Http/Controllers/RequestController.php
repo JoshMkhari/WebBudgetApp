@@ -43,7 +43,7 @@ class RequestController extends Controller
         //Auth::user()->role
 
 
-        Request::where('id', 3)
+        Request::where('id', 4)
             ->update(['status' => 2]);
 
         return redirect()->back();
