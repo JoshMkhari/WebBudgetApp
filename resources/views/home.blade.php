@@ -290,6 +290,29 @@
                                             <td><span class="badge bg-success">Approved</span></td>
                                         @endif
                                     </tr>
+                                    <div class="modal fade" id="basicModal-{{$request->id}}" tabindex="-1">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">{{$request->name}}<span> | R {{$request->amount_requested}}</span></h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h5>Justification</h5>
+                                                    {{$request->description}}
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <form method="POST"  action="{{route('post.approve')}}">
+                                                        <input id="actionToBeDone" type="hidden" name="actionToBeDone">
+                                                        <input id="requestID" type="hidden" name="requestID" value="{{$request->id}}">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-danger" name="reject_button"  >Reject</button>
+                                                        <button type="submit" class="btn btn-primary" name="approve_button" >Send to HOD</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- End Basic Modal-->
                                     @endforeach
                                     </tbody>
                                 </table>

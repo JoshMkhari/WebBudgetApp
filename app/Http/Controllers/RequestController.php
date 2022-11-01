@@ -42,14 +42,11 @@ class RequestController extends Controller
     public function postApprove(\Illuminate\Http\Request $request){
 
         $reqID =  $request['requestID'];
-        $action = $request['actionToBeDone'];
-
-        if($action == 0)//Action is to reject request
-        {
+        if (isset($_POST['reject_button'])) {
             Request::where('id',$reqID)
                 ->update([
                     'approved' => 0]);
-        }else{
+        } else if (isset($_POST['approve_button'])) {
             Request::where('id',$reqID)
                 ->update([
                     'status' => Auth::user()->role +1,
@@ -58,7 +55,7 @@ class RequestController extends Controller
             $status = Request::where('id',  $reqID)
                 ->first()->status;
 
-            if($status ==3)
+            if($status ==4)
             {
                 Request::where('id',  $reqID)
                     ->update([
