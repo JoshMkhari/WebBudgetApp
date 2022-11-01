@@ -16,7 +16,7 @@
     <div class="d-flex align-items-center justify-content-between">
         <a href="index.html" class="logo d-flex align-items-center">
             <img src="assets/img/logo.png" alt="">
-            <span class="d-none d-lg-block">NiceAdmin</span>
+            <span class="d-none d-lg-block">Budget App</span>
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -168,32 +168,23 @@
             <li class="nav-item dropdown pe-3">
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                    <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+                    <span class="d-none d-md-block dropdown-toggle ps-2">{{Auth::user()->name}}</span>
                 </a><!-- End Profile Iamge Icon -->
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
-                        <h6>Kevin Anderson</h6>
-                        <span>Employee</span>
+                        <h6>{{Auth::user()->name}}</h6>
+                        <span>{{Auth::user()->email}}</span>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
                     </li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>
 
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                            <i class="bi bi-person"></i>
-                            <span>My Profile</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-                    <li>
-                        <a class="dropdown-item d-flex align-items-center" href="#">
+                        <a class="dropdown-item d-flex align-items-center" href="{{route('user.logout')}}">
                             <i class="bi bi-box-arrow-right"></i>
                             <span>Sign Out</span>
                         </a>
@@ -213,7 +204,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link " href="index.html">
+            <a class="nav-link " href="{{route('home')}}">
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
             </a>
@@ -222,7 +213,7 @@
         <li class="nav-heading">Pages</li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="pages-contact.html">
+            <a class="nav-link collapsed" href="{{route('create.request')}}">
                 <i class="bi bi-envelope"></i>
                 <span>New Request</span>
             </a>
@@ -239,7 +230,7 @@
         <h1>Dashboard</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
                 <li class="breadcrumb-item active">Dashboard</li>
             </ol>
         </nav>
@@ -284,38 +275,42 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    @foreach($requests as $request)
                                     <tr>
-                                        <th scope="row"><a href="#">#2457</a></th>
-                                        <td>Equipment</td>
-                                        <td>Standard Floor Boards</td>
-                                        <td>$64</td>
-                                        <td>3</td>
-                                        <td><span class="badge bg-success">Approved</span></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"><a href="#">#2457</a></th>
-                                        <td>Resource</td>
-                                        <td>Car Rental</td>
-                                        <td>$6434</td>
-                                        <td>1</td>
-                                        <td><span class="badge bg-warning">Pending</span></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"><a href="#">#2457</a></th>
-                                        <td>Equipment</td>
-                                        <td>Tiles</td>
-                                        <td>$64</td>
-                                        <td>0</td>
-                                        <td><span class="badge bg-warning">Pending</span></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"><a href="#">#2457</a></th>
-                                        <td>Equipment</td>
-                                        <td>1080p Monitor</td>
-                                        <td>$200</td>
-                                        <td>2</td>
+                                        <th scope="row"><a href="#" data-bs-toggle="modal" data-bs-target="#basicModal-{{$request->id}}">{{$request->id}}</a></th>
+                                        <td>{{$request->type}}</td>
+                                        <td>{{$request->name}}</td>
+                                        <td>{{$request->amount_requested}}</td>
+                                        <td>{{$request->status}}</td>
+                                        @if($request->approved == 0)
                                         <td><span class="badge bg-danger">Rejected</span></td>
+                                        @elseif($request->approved == 1)
+                                            <td><span class="badge bg-warning">Pending</span></td>
+                                        @elseif($request->approved == 2)
+                                            <td><span class="badge bg-success">Approved</span></td>
+                                        @endif
                                     </tr>
+                                    <div class="modal fade" id="basicModal-{{$request->id}}" tabindex="-1">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">{{$request->name}}<span> | R {{$request->amount_requested}}</span></h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h5>Justification</h5>
+                                                    {{$request->description}}
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <form method="POST"  action="{{route('post.approve')}}">
+                                                        <input id="actionToBeDone" type="hidden" name="actionToBeDone">
+                                                        <input id="requestID" type="hidden" name="requestID" value="{{$request->id}}">
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- End Basic Modal-->
+                                    @endforeach
                                     </tbody>
                                 </table>
 

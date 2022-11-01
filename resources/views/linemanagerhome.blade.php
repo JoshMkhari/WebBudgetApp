@@ -16,7 +16,7 @@
         <div class="d-flex align-items-center justify-content-between">
             <a href="index.html" class="logo d-flex align-items-center">
                 <img src="assets/img/logo.png" alt="">
-                <span class="d-none d-lg-block">NiceAdmin</span>
+                <span class="d-none d-lg-block">Budget App</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
@@ -168,14 +168,13 @@
                 <li class="nav-item dropdown pe-3">
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                        <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+                        <span class="d-none d-md-block dropdown-toggle ps-2">{{Auth::user()->name}}</span>
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6>Kevin Anderson</h6>
-                            <span>Line Manager</span>
+                            <h6>{{Auth::user()->name}}</h6>
+                            <span>{{Auth::user()->email}}</span>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
@@ -193,7 +192,7 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
+                            <a class="dropdown-item d-flex align-items-center" href="{{route('user.logout')}}">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Sign Out</span>
                             </a>
@@ -258,25 +257,6 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Requests</h5>
 
-                                    <div class="modal fade" id="basicModal" tabindex="-1">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">Standard Floor Boards <span>| $64</span></h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <h5>Justification</h5>
-                                                    Standard floor boards are needed in the gallery, the current state of the gallery will scare away any potential customers
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Reject</button>
-                                                    <button type="button" class="btn btn-primary">Send to HOD</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div><!-- End Basic Modal-->
-
                                     <table class="table table-borderless datatable">
                                         <thead>
                                         <tr>
@@ -289,38 +269,45 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <th scope="row"><a href="#" data-bs-toggle="modal" data-bs-target="#basicModal">#2457</a></th>
-                                            <td>Darshika</td>
-                                            <td>Standard Floor Boards</td>
-                                            <td>$64</td>
-                                            <td>3</td>
-                                            <td><span class="badge bg-success">Approved</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><a href="#" data-bs-toggle="modal" data-bs-target="#basicModal">#2457</a></th>
-                                            <td>Bryan</td>
-                                            <td>Car Rental</td>
-                                            <td>$6434</td>
-                                            <td>1</td>
-                                            <td><span class="badge bg-warning">Pending</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><a href="#" data-bs-toggle="modal" data-bs-target="#basicModal">#2457</a></th>
-                                            <td>Lesedi</td>
-                                            <td>Tiles</td>
-                                            <td>$64</td>
-                                            <td>0</td>
-                                            <td><span class="badge bg-warning">Pending</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><a href="#" data-bs-toggle="modal" data-bs-target="#basicModal">#2457</a></th>
-                                            <td>Josh</td>
-                                            <td>1080p Monitor</td>
-                                            <td>$200</td>
-                                            <td>2</td>
-                                            <td><span class="badge bg-danger">Rejected</span></td>
-                                        </tr>
+                                        @foreach($requests as $request)
+                                            <tr>
+                                                <th scope="row"><a href="#" data-bs-toggle="modal" data-bs-target="#basicModal-{{$request->id}}">{{$request->id}}</a></th>
+                                                <td>{{\App\Models\User::find($request->created_by)->first()->name}}</td>
+                                                <td>{{$request->name}}</td>
+                                                <td>{{$request->amount_requested}}</td>
+                                                <td>{{$request->status}}</td>
+                                                @if($request->approved == 0)
+                                                    <td><span class="badge bg-danger">Rejected</span></td>
+                                                @elseif($request->approved == 1)
+                                                    <td><span class="badge bg-warning">Pending</span></td>
+                                                @elseif($request->approved == 2)
+                                                    <td><span class="badge bg-success">Approved</span></td>
+                                                @endif
+                                            </tr>
+                                            <div class="modal fade" id="basicModal-{{$request->id}}" tabindex="-1">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">{{$request->name}}<span> | R {{$request->amount_requested}}</span></h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <h5>Justification</h5>
+                                                            {{$request->description}}
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <form method="POST"  action="{{route('post.approve')}}">
+                                                                <input id="actionToBeDone" type="hidden" name="actionToBeDone">
+                                                                <input id="requestID" type="hidden" name="requestID" value="{{$request->id}}">
+                                                                @csrf
+                                                                <button type="submit" class="btn btn-danger" name="reject_button"  >Reject</button>
+                                                                <button type="submit" class="btn btn-primary" name="approve_button" >Send to HOD</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- End Basic Modal-->
+                                        @endforeach
                                         </tbody>
                                     </table>
 

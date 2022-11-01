@@ -24,7 +24,7 @@ class User extends \Illuminate\Foundation\Auth\User
      *
      * @var string
      */
-    protected $table = 'user';
+    protected $table = 'users';
 
     /**
      * The primary key for the model.
