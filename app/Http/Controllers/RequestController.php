@@ -22,7 +22,6 @@ class RequestController extends Controller
     }
     public function postRequest(\Illuminate\Http\Request $request){
 
-        Log::info($request->all());
         $req = new Request();
         $req->amount_requested = floatval($request['Price']);
         $req->name = $request['Name'];

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RequestController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -20,10 +21,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
         return view('welcome');
     });
-    Route::get('/create-request',[\App\Http\Controllers\RequestController::class,'createView'])->name('create.request')->middleware('role:0');
-    Route::any('/post-request',[\App\Http\Controllers\RequestController::class,'postRequest'])->name('post.request')->middleware('role:0');
-    Route::any('/post-approve',[\App\Http\Controllers\RequestController::class,'postApprove'])->name('post.approve')->middleware('min.role:1');
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+    Route::get('/create-request',[RequestController::class,'createView'])->name('create.request')->middleware('throttle:only_three_requests')->middleware('role:0');
+    Route::any('/post-request',[RequestController::class,'postRequest'])->name('post.request')->middleware('throttle:only_three_requests')->middleware('role:0');
+    Route::any('/post-approve',[RequestController::class,'postApprove'])->name('post.approve')->middleware('throttle:only_two_approves')->middleware('min.role:1');
+
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('throttle:api');
     Route::get('/logout', [App\Http\Controllers\UserController::class, 'logout'])->name('user.logout');
 });
 //Route::put('/post/{id}', function ($id) {
