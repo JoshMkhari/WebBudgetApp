@@ -50,10 +50,10 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         RateLimiter::for('only_three_requests', function (Request $request) {
-            return Limit::perMinute(3);
+            return Limit::perHour(3);
         });
         RateLimiter::for('only_two_approves', function (Request $request) {
-            return Limit::perMinute(2);
+            return Limit::perHour(2);
         });
     }
 }
