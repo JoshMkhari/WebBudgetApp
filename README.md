@@ -16,7 +16,7 @@
 - Approve or reject requests as a finance member for all heads of department.
 - View budget breakdown in varrying levels of detail based on role (Head of Department or Finance member).
 - View all requests made and their current status as an employee.
-- [Watch YouTube Video](https://laravel.com/docs/broadcasting).
+- [Watch YouTube Video](https://youtu.be/GojJmwUmmvE).
 
 ## Problem Description
 
