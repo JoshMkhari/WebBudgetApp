@@ -96,6 +96,7 @@ class RequestController extends Controller
         return Request::where('department', $department)->where('status','>=', 2)->get();
     }
 
+
     public function escalateRequest(Request $request)
     {
         $currentStatus = Auth::user()->role;
