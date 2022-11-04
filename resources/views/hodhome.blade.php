@@ -270,7 +270,7 @@
                                         @foreach($requests as $request)
                                             <tr>
                                                 <th scope="row"><a href="#" data-bs-toggle="modal" data-bs-target="#basicModal-{{$request->id}}">{{$request->id}}</a></th>
-                                                <td>{{\App\Models\User::where('id',$request->updated_by)->first()->name}}</td>
+                                                <td>{{\App\Models\User::where('id',2)->first()->name}}</td>
                                                 <td>{{$request->amount_requested}}</td>
                                                 <td>{{$request->status}}</td>
                                                 @if($request->approved == 0)
@@ -434,7 +434,7 @@
                                             type: 'pie',
                                             radius: '50%',
                                             data: [{
-                                                value: 1048,
+                                                value: 1000000,
                                                 name: 'Funds'
                                             },
                                                 {

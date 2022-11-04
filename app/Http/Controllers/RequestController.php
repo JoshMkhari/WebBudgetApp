@@ -93,7 +93,7 @@ class RequestController extends Controller
 
     public static function getRequestsAtHODLevel($department, $status)
     {
-        return Request::where('department', $department);
+        return Request::where('department', $department)->where('status','>=', 2)->get();
     }
 
     public function escalateRequest(Request $request)
