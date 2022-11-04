@@ -272,7 +272,7 @@
                                         @foreach($requests as $request)
                                             <tr>
                                                 <th scope="row"><a href="#" data-bs-toggle="modal" data-bs-target="#basicModal-{{$request->id}}">{{$request->id}}</a></th>
-                                                <td>{{\App\Models\User::find($request->created_by)->first()->name}}</td>
+                                                <td>{{\App\Models\User::where('id',$request->created_by)->first()->name}}</td>
                                                 <td>{{$request->name}}</td>
                                                 <td>{{$request->amount_requested}}</td>
                                                 <td>{{$request->status}}</td>
