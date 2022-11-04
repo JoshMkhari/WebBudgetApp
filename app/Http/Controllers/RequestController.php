@@ -91,6 +91,11 @@ class RequestController extends Controller
         return Request::where('department', $department)->where('status', $status)->get();
     }
 
+    public static function getRequestsAtHODLevel($department, $status)
+    {
+        return Request::where('department', $department);
+    }
+
     public function escalateRequest(Request $request)
     {
         $currentStatus = Auth::user()->role;
@@ -126,7 +131,7 @@ class RequestController extends Controller
 
     public static function getRequestsByUser($user)
     {
-        return $requests = Request::where('created_by', $user->id)->get();
+        return Request::where('created_by', $user->id)->get();
     }
 
     public function getRequestsByUserAndStatus($user, $status)

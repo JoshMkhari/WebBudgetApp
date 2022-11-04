@@ -322,10 +322,10 @@
                                         new Chart(document.querySelector('#barChart'), {
                                             type: 'bar',
                                             data: {
-                                                labels: ['Carl', 'Manager2', 'Manager3', 'Manager4', 'Manager5', 'Manager6', 'Manager7'],
+                                                labels: ['Carl', 'Doe', 'Manager3', 'Manager4', 'Manager5', 'Manager6', 'Manager7'],
                                                 datasets: [{
                                                     label: 'Costs',
-                                                    data: [95, 0, 5, 0, 0, 0, 0],
+                                                    data: [0, {{$requests->sum('amount_requested')}}, 0, 0, 0, 0, 0],
                                                     backgroundColor: [
                                                         'rgba(255, 99, 132, 0.2)',
                                                         'rgba(255, 159, 64, 0.2)',
@@ -438,7 +438,7 @@
                                                 name: 'Funds'
                                             },
                                                 {
-                                                    value: 735,
+                                                    value: {{$requests->sum('amount_requested')}},
                                                     name: 'Costs'
                                                 }
                                             ],

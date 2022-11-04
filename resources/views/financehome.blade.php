@@ -1,3 +1,4 @@
+@php use App\Models\User; @endphp
 @extends('layouts.app')
 
 @section('content')
@@ -7,7 +8,9 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
 
 
     <!-- ======= Header ======= -->
@@ -258,13 +261,12 @@
                                     <h5 class="card-title">Requests <span>| This Month</span></h5>
 
                                     <div class="d-flex align-items-center">
-                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <div
+                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                             <i class="bi bi-cart"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>145</h6>
-                                            <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
-
+                                            <h6>{{$requests->where('approved',2)->count('amount_requested')}}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -280,12 +282,14 @@
                                     <h5 class="card-title">Revenue <span>| This Month</span></h5>
 
                                     <div class="d-flex align-items-center">
-                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <div
+                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                             <i class="bi bi-currency-dollar"></i>
                                         </div>
                                         <div class="ps-3">
                                             <h6>$3,264</h6>
-                                            <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                                            <span class="text-success small pt-1 fw-bold">8%</span> <span
+                                                class="text-muted small pt-2 ps-1">increase</span>
 
                                         </div>
                                     </div>
@@ -313,8 +317,10 @@
                                         <tbody>
                                         @foreach($requests as $request)
                                             <tr>
-                                                <th scope="row"><a href="#" data-bs-toggle="modal" data-bs-target="#basicModal-{{$request->id}}">{{$request->id}}</a></th>
-                                                <td>{{\App\Models\User::where('id',$request->updated_by)->first()->department}}</td>
+                                                <th scope="row"><a href="#" data-bs-toggle="modal"
+                                                                   data-bs-target="#basicModal-{{$request->id}}">{{$request->id}}</a>
+                                                </th>
+                                                <td>{{User::where('id',$request->updated_by)->first()->department}}</td>
                                                 <td>{{$request->amount_requested}}</td>
                                                 <td>{{$request->status}}</td>
                                                 @if($request->approved == 0)
@@ -329,20 +335,28 @@
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title">{{$request->name}}<span> | R {{$request->amount_requested}}</span></h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            <h5 class="modal-title">{{$request->name}}
+                                                                <span> | R {{$request->amount_requested}}</span></h5>
+                                                            <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
                                                             <h5>Justification</h5>
                                                             {{$request->description}}
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <form method="POST"  action="{{route('post.approve')}}">
-                                                                <input id="actionToBeDone" type="hidden" name="actionToBeDone">
-                                                                <input id="requestID" type="hidden" name="requestID" value="{{$request->id}}">
+                                                            <form method="POST" action="{{route('post.approve')}}">
+                                                                <input id="actionToBeDone" type="hidden"
+                                                                       name="actionToBeDone">
+                                                                <input id="requestID" type="hidden" name="requestID"
+                                                                       value="{{$request->id}}">
                                                                 @csrf
-                                                                <button type="submit" class="btn btn-danger" name="reject_button"  >Reject</button>
-                                                                <button type="submit" class="btn btn-primary" name="approve_button" >Approve</button>
+                                                                <button type="submit" class="btn btn-danger"
+                                                                        name="reject_button">Reject
+                                                                </button>
+                                                                <button type="submit" class="btn btn-primary"
+                                                                        name="approve_button">Approve
+                                                                </button>
                                                             </form>
                                                         </div>
                                                     </div>
@@ -366,10 +380,10 @@
                                         new Chart(document.querySelector('#barChart'), {
                                             type: 'bar',
                                             data: {
-                                                labels: ['Sales', 'Marketing', 'Development', 'Customer Support', 'ion Technology', 'Administration'],
+                                                labels: ['Sales', 'Marketing', 'Development', 'Human Resources', 'ion Technology', 'Administration'],
                                                 datasets: [{
                                                     label: 'Spending',
-                                                    data: [110, 110, 70, 75, 130, 210],
+                                                    data: [110, 110, 70, {{$requests->where('approved',  2)->sum('amount_requested')}}, 130, 210],
                                                     backgroundColor: [
                                                         'rgba(255, 99, 132, 0.2)',
                                                         'rgba(255, 159, 64, 0.2)',
@@ -422,7 +436,8 @@
                                     <div class="activite-label">32 min</div>
                                     <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
                                     <div class="activity-content">
-                                        You have <a href="#" class="fw-bold text-dark">Approved</a> Standard Floor boards
+                                        You have <a href="#" class="fw-bold text-dark">Approved</a> Standard Floor
+                                        boards
                                     </div>
                                 </div><!-- End activity item-->
 
@@ -433,7 +448,6 @@
                                         You have <a href="#" class="fw-bold text-dark">Approved</a> New carpets
                                     </div>
                                 </div><!-- End activity item-->
-
 
 
                             </div>
@@ -482,7 +496,7 @@
                                                     max: 30000
                                                 },
                                                 {
-                                                    name: 'Customer Support',
+                                                    name: 'Human Resources',
                                                     max: 38000
                                                 },
                                                 {
@@ -499,7 +513,7 @@
                                             name: 'Budget vs spending',
                                             type: 'radar',
                                             data: [{
-                                                value: [4200, 3000, 20000, 35000, 50000, 18000],
+                                                value: [4200, 3000, 20000, {{$requests->where('approved',  2)->sum('amount_requested')}}, 50000, 18000],
                                                 name: 'Allocated Budget'
                                             },
                                                 {
@@ -520,6 +534,5 @@
         </section>
 
     </main><!-- End #main -->
-
 
 @endsection
